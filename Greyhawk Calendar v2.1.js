@@ -10,7 +10,7 @@
 var Calendar = Calendar || (function() {
     'use strict';
     
-    var version = '2.0',
+    var version = '2.1',
     
     setDefaults = function() {
         state.Calendar = {
@@ -110,7 +110,7 @@ var Calendar = Calendar || (function() {
             '<div ' + arrowstyle + '></div>' + //--
             '<table>' + //--
             '<tr><td>Day: </td><td><a ' + astyle + '" href="!setday,?{Day?|1},' + month +'">' + day + '</a></td></tr>' + //--
-            '<tr><td>Month: </td><td><a ' + astyle + '" href="!setmonth,' + day + ',?{Month|Needfest|Fire Seek|Readying|Coldeven|Growfest|Planting|Flocktime|Wealsun|Richfest|Reaping|Goodmonth|Harvester|Brewfest|Patchwall|Readyreat|Sunsebb}">' + month + '</a></td></tr>' + //--
+            '<tr><td>Month: </td><td><a ' + astyle + '" href="!setmonth,' + day + ',?{Month|Needfest|Fire Seek|Readying|Coldeven|Growfest|Planting|Flocktime|Wealsun|Richfest|Reaping|Goodmonth|Harvester|Brewfest|Patchwall|Ready\'reat|Sunsebb}">' + month + '</a></td></tr>' + //--
 			// '<tr><td>Weekday: </td><td>'+dofw+'</td></tr>'+ //-- In case we want the weekday up here
             '<tr><td>Year: </td><td><a ' + astyle + '" href="!setyear,?{Year?|595}">' + state.Calendar.now.year +' CY</a></td></tr>' + //--
             '<tr><td>Ordinal: </td><td><a ' + astyle + '" href="!setordinal,?{Ordinal?|1}">' + state.Calendar.now.ordinal + '</a></td></tr>' + //--
@@ -209,7 +209,7 @@ var Calendar = Calendar || (function() {
             month="Patchwall";
             date=day-280;
         }else if(day>308 && day<=336){
-            month="Readyreat";
+            month="Ready\'reat";
             date=day-308;
         }else if(day>336 && day<=364){
             month="Sunsebb";
@@ -304,7 +304,7 @@ var Calendar = Calendar || (function() {
             case 'Patchwall':
                 ordinal = 280+date;
                 break;
-            case 'Readyreat':
+            case 'Ready\'reat':
                 ordinal = 308+date;
                 break;
             case 'Sunsebb':
