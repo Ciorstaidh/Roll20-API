@@ -119,8 +119,10 @@ var Calendar = Calendar || (function() {
             '<tr><td>Down Days: </td><td><a ' + astyle1 + '" href="!setdown,?{Down Days?|0}">' + down + '</a></td></tr>' + //--
             '<tr><td>Down Day<br>Divider: </td><td><a ' + astyle1 + '" href="!setdiv,?{Down Day Divider?|1}">' + state.Calendar.now.div + '</a></td></tr>' + //--
             '</table>' + //--
-            //'<br>Weather: ' + state.Calendar.now.weather + //--
-            //'<br><br>Moon: ' + moon + //--
+			'<br>Weekday: '+dofw+ //--
+			'<br>Luna ' + state.Calendar.now.luna + //--
+            '<br>Celene ' + state.Calendar.now.celene + //--
+			'<br><br>Weather: ' + state.Calendar.now.weather + //--
             '<br><br><div style="text-align:center;"><a ' + astyle2 + '" href="!addday,?{Days to add?|1}">Advance the Date</a></div>' + //--
             '<div style="text-align:center;"><a ' + astyle2 + '" href="!weather">Roll Weather</a></div>' + //--
             '<div style="text-align:center;"><a ' + astyle2 + '" href="!playercal">Show to Players</a></div>' + //--
