@@ -3,7 +3,7 @@
 // Greyhawk and moon additions by Brusana (https://app.roll20.net/users/273644/brusana)
 
 // API Commands:
-// !cal - for the GM displays the menu in the chat window, for a player displays date, weather, moons and down days
+// !cal - for the GM displays the menu in the chat window, for a player displays date, weather, moon and down days
 
 // Red Colour: #7E2D40
 
@@ -18,14 +18,25 @@ var Calendar = Calendar || (function() {
                 ordinal: 1,
                 year: 595,
                 down: 0,
-                divider: 1,
-                weather: "It is a cool but sunny day",
+                divider: 0,
+                weather: "It is a cool but sunny day.",
 				luna: 'is waning',
 				celene: 'is waxing'
+				//startdate: "1,Needfest,595"
             },
         };
     },
-   
+    
+    checkDefaults = function() {
+        if( ! state.Calendar.now.version){state.Calendar.now.version = "2.1"};
+        if( ! state.Calendar.now.ordinal){state.Calendar.now.ordinal = 1};
+        if( ! state.Calendar.now.year){state.Calendar.now.year = 595};
+        if( ! state.Calendar.now.down){state.Calendar.now.down = '0'};
+        if( ! state.Calendar.now.divider){state.Calendar.now.divider = '0'};
+        if( ! state.Calendar.now.weather){state.Calendar.now.weather = "It is a cool but sunny day."};
+        //if( ! state.Calendar.now.startdate){state.Calendar.now.startdate = "1,Needfest,595"};
+    },
+    
     handleInput = function(msg) {
         var args = msg.content.split(",");
         
@@ -36,6 +47,10 @@ var Calendar = Calendar || (function() {
 		if(playerIsGM(msg.playerid)){
 		    switch(args[0]) {
 		        case '!cal':
+                    calmenu();
+                    break;
+                case '!startdate':
+                    state.Calendar.now.startdate=args[1]+','+args[2]+','+args[3];
                     calmenu();
                     break;
                 case '!setday':
@@ -76,7 +91,15 @@ var Calendar = Calendar || (function() {
                     calmenu();
                     break;
                 case '!weather':
-                    state.Calendar.now.weather=args[1];
+                    if(args[1]=='Roll}'){
+                        weather();
+                    }else{
+                        var string = args[1];
+                        for (var i = 2; i < args.length; i++) {
+                            string = string + ", " + args[i];
+                        }
+                        state.Calendar.now.weather = string;
+                    }
 					getmoons();                    
 					calmenu();
                     break;
@@ -110,12 +133,12 @@ var Calendar = Calendar || (function() {
             '<div ' + substyle + '>Menu</div>' + //--
             '<div ' + arrowstyle + '></div>' + //--
             '<table>' + //--
+          //  '<tr><td>Start Date: </td><td><a ' + astyle1 + '" href="!startdate,?{Day},?{Month},?{Year}">' + startdate + '</a></td></tr>' + //--
             '<tr><td>Day: </td><td><a ' + astyle1 + '" href="!setday,?{Day?|1},' + month +'">' + day + '</a></td></tr>' + //--
             '<tr><td>Month: </td><td><a ' + astyle1 + '" href="!setmonth,' + day + ',?{Month|Needfest|Fire Seek|Readying|Coldeven|Growfest|Planting|Flocktime|Wealsun|Richfest|Reaping|Goodmonth|Harvester|Brewfest|Patchwall|Ready\'reat|Sunsebb}">' + month + '</a></td></tr>' + //--
 			// '<tr><td>Weekday: </td><td>'+dofw+'</td></tr>'+ //-- In case we want the weekday up here
             '<tr><td>Year: </td><td><a ' + astyle1 + '" href="!setyear,?{Year?|595}">' + state.Calendar.now.year +' CY</a></td></tr>' + //--
             '<tr><td>Ordinal: </td><td><a ' + astyle1 + '" href="!setordinal,?{Ordinal?|1}">' + state.Calendar.now.ordinal + '</a></td></tr>' + //--
-            '<tr><td>Weather: </td><td><a ' + astyle1 + '" href="!weather,?{Weather?| }">Set Weather</a></td></tr>' + //--
             '<tr><td>Down Days: </td><td><a ' + astyle1 + '" href="!setdown,?{Down Days?|0}">' + down + '</a></td></tr>' + //--
             '<tr><td>Down Day<br>Divider: </td><td><a ' + astyle1 + '" href="!setdiv,?{Down Day Divider?|1}">' + state.Calendar.now.div + '</a></td></tr>' + //--
             '</table>' + //--
@@ -124,7 +147,7 @@ var Calendar = Calendar || (function() {
             '<br>Celene ' + state.Calendar.now.celene + //--
 			'<br><br>Weather: ' + state.Calendar.now.weather + //--
             '<br><br><div style="text-align:center;"><a ' + astyle2 + '" href="!addday,?{Days to add?|1}">Advance the Date</a></div>' + //--
-            '<div style="text-align:center;"><a ' + astyle2 + '" href="!weather">Roll Weather</a></div>' + //--
+            '<div style="text-align:center;"><a ' + astyle2 + '" href="!weather,?{Weather|Roll|Edit,?{Edit Weather}}">Change Weather</a></div>' + //--
             '<div style="text-align:center;"><a ' + astyle2 + '" href="!playercal">Show to Players</a></div>' + //--
             '</div>'
         );
@@ -160,9 +183,9 @@ var Calendar = Calendar || (function() {
             day + suffix + ' of ' + month +', '+grammar+' '+dofw+', ' + state.Calendar.now.year+' CY' + //--
 	    downstr + //--
 			'<br><br>' + //--
-            'Luna ' + state.Calendar.now.luna + //--
+            'Luna: ' + state.Calendar.now.luna + //--
 			'<br>' + //--
-            'Celene ' + state.Calendar.now.celene + //--
+            'Celene: ' + state.Calendar.now.celene + //--
             '<br><br>Today\'s weather:<br>' + state.Calendar.now.weather //--
         );
     },
@@ -491,12 +514,6 @@ var Calendar = Calendar || (function() {
 		state.Calendar.now.luna = luna_phase;
 		state.Calendar.now.celene = celene_phase;
 	},
-    checkInstall = function() {
-        // Check if the Calendar property exists, creating it if it doesn't
-        if( ! state.Calendar ) {
-            setDefaults();
-        }
-    },
      getMoon = function(perc) {
         var args  = perc.split(',');
         var today = args[0];
@@ -523,6 +540,16 @@ var Calendar = Calendar || (function() {
         }
         
         return moon;
+    },
+    
+    checkInstall = function() {
+        if( ! state.Calendar.now.version ) {
+            setDefaults();
+        }
+        
+        if ( state.Calendar.now.version != version ){
+            checkDefaults();
+        }
     },
     registerEventHandlers = function() {
         on('chat:message', handleInput);
