@@ -473,300 +473,21 @@ var Calendar = Calendar || (function() {
         state.Calendar.now.weather = forecast;
     },
 	getmoons = function(){
-		var celene_phase;
-		var luna_phase;
-		var ordinal = state.Calendar.now.ordinal;
-		
-		//-- Calcualte Luna's Phase //-- 
-		if(ordinal>=4 && ordinal <11)
-		{
-			luna_phase = 'is new';
-		}
-		else if(ordinal>=32 && ordinal<39)
-		{
-			luna_phase = 'is new';
-		}
-		else if(ordinal>=60 && ordinal<67)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=88 && ordinal<96)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=116 && ordinal<123)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=144 && ordinal<151)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=172 && ordinal<179)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=200 && ordinal<207)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=228 && ordinal<238)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=256 && ordinal<263)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=284 && ordinal<291)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=312 && ordinal<319)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=340 && ordinal<347)
-		{
-			luna_phase = 'is new';		
-		}
-		else if(ordinal>=11 && ordinal<18)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=39  && ordinal<46)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=67  && ordinal<74)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=95  && ordinal<102)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=123  && ordinal<130)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=151  && ordinal<158)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=179  && ordinal<186)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=207  && ordinal<214)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=235  && ordinal<242)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=263  && ordinal<270)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=291  && ordinal<298)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=319  && ordinal<326)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=347 && ordinal<354)
-		{ 
-			luna_phase = 'is waxing';
-		}
-		else if(ordinal>=18 && ordinal<25)
-		{ 
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=46 && ordinal<53)
-		{ 
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=74 && ordinal<81)
-		{ 
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=102 && ordinal<109)
-		{ 
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=130 && ordinal<137)
-		{ 
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=158 && ordinal<165)
-		{ 
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=186 && ordinal<193)
-		{		
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=214 && ordinal<221)
-		{
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=242 && ordinal<249)
-		{
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=270 && ordinal<277)
-		{
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=298 && ordinal<305)
-		{
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=326 && ordinal<333)
-		{
-			luna_phase = 'is full';
-		}
-		else if(ordinal>=354 && ordinal<361)
-		{
-			luna_phase = 'is full'; 
-		}
-		else if(ordinal>=1 && ordinal<4)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=25 && ordinal<32)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=53 && ordinal<60)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=81 && ordinal<89)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=109 && ordinal<116)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=137 && ordinal<144)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=165 && ordinal<172)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=193 && ordinal<200)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=221 && ordinal<228)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=249 && ordinal<256)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=277 && ordinal<284)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=305 && ordinal<312)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=333 && ordinal<340)
-		{
-			luna_phase = 'is waning';
-		}
-		else if(ordinal>=361 && ordinal<364)
-		{
-			luna_phase = 'is waning';
-		}
-		else
-		{
-			luna_phase = 'is missing from the night sky';
-        }
-		//-- Calcualte Celene's Phase //--  && 141<=ordinal<164 && 232<=ordinal<255 && 323<=ordinal<346)
-		if(ordinal>=4 && ordinal<27)
-		{
-			celene_phase = 'is full';
-		}
-		else if(ordinal>=95 && ordinal<118)
-		{
-			celene_phase = 'is full';
-		}
-		else if(ordinal>=186 && ordinal<209)
-		{
-			celene_phase = 'is full';
-		}
-		else if(ordinal>=277 && ordinal<300)
-		{
-			celene_phase = 'is full';
-		}
-		else if(ordinal>=27 && ordinal<50)
-		{
-			celene_phase = 'is waning';
-		}
-		else if(ordinal>=118 && ordinal<141)
-		{
-			celene_phase = 'is waning';
-		}
-		else if(ordinal>=209 && ordinal<232)
-		{
-			celene_phase = 'is waning';
-		}
-		else if(ordinal>=300 && ordinal<323)
-		{
-			celene_phase = 'is waning';
-		}
-		else if(ordinal>=1 && ordinal < 4)
-		{
-			celene_phase = 'is waxing';
-		}
-		else if(ordinal>=73 && ordinal < 96)
-		{
-			celene_phase = 'is waxing';
-		}
-		else if(ordinal>=164 && ordinal < 187)
-		{
-			celene_phase = 'is waxing';
-		}
-		else if(ordinal>=255 && ordinal < 278)
-		{
-			celene_phase = 'is waxing';
-		}
-		else if( ordinal>=346 && ordinal < 364)
-		{
-			celene_phase = 'is waxing';
-		}
-		else if(ordinal>=50 && ordinal < 73)
-		{
-			celene_phase = 'is new';
-		}
-		else if(ordinal>=141 && ordinal<164)
-		{
-			celene_phase = 'is new';
-		}
-		else if(ordinal>=232 && ordinal<255)
-		{
-			celene_phase = 'is new';
-		}
-		else if(ordinal>=323 && ordinal<346)
-		{
-			celene_phase = 'is new';
-		}
-		else
-		{
-			celene_phase = 'is missing from the night sky';
-		}
+        var ordinal = Number(state.Calendar.now.ordinal);
+        var today;
+        var tomorrow;
+        var LunaOrd = ordinal + 10;
+        var CeleneOrd = ordinal + 87;
+        
+        today = LunaOrd/28 - Math.floor(LunaOrd/28);
+        tomorrow = (LunaOrd+1)/28 - Math.floor((LunaOrd+1)/28);
+        var perc = today + ',' + tomorrow + ',' + 0;
+        var luna_phase = getMoon(perc);
+        
+        today = CeleneOrd/91 - Math.floor(CeleneOrd/91);
+        tomorrow = (CeleneOrd+1)/91 - Math.floor((CeleneOrd+1)/91);
+        perc = today + ',' + tomorrow + ',' + 0;
+        var celene_phase = getMoon(perc)
 		state.Calendar.now.luna = luna_phase;
 		state.Calendar.now.celene = celene_phase;
 	},
@@ -776,7 +497,33 @@ var Calendar = Calendar || (function() {
             setDefaults();
         }
     },
-    
+     getMoon = function(perc) {
+        var args  = perc.split(',');
+        var today = args[0];
+        var tomorrow = args[1];
+        var moonOrdinal = args[2];
+        var moon;
+        
+        if(today==0 || moonOrdinal==1){
+            moon = 'Full Moon'
+        }else if(today<=0.25 && tomorrow>0.25){
+            moon = 'Last Quarter';
+        }else if(today<0.25){
+            moon = 'Waning Gibbous';
+        }else if(today<=0.5 && tomorrow>0.5){
+            moon = 'New Moon';
+        }else if(today<0.5){
+            moon = 'Waning Crescent';
+        }else if(today<=0.75 && tomorrow>0.75){
+            moon = 'First Quarter';
+        }else if(today<0.75){
+            moon = 'Waxing Crescent';
+        }else{
+            moon = 'Waxing Gibbous';
+        }
+        
+        return moon;
+    },
     registerEventHandlers = function() {
         on('chat:message', handleInput);
 	};
