@@ -515,8 +515,8 @@ var Calendar = Calendar || (function() {
         var perc = today + ',' + tomorrow + ',' + 0;
         var Luna = getMoon(perc);
         
-        today = CeleneOrd/91 - Math.floor(CeleneOrd/91);
-        tomorrow = (CeleneOrd+1)/91 - Math.floor((CeleneOrd+1)/91);
+        today = Math.floor((CeleneOrd/91 - Math.floor(CeleneOrd/91))*100)/100;
+        tomorrow = Math.floor(((CeleneOrd+1)/91 - Math.floor((CeleneOrd+1)/91))*100)/100;
         perc = today + ',' + tomorrow + ',' + 0;
         var Celene = getMoon(perc)
         
