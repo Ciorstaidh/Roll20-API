@@ -1,0 +1,149 @@
+// Kill counter using the OGL sheet
+// Created by Kirsty (https://app.roll20.net/users/1165285/kirsty)
+
+// API Commands:
+// !killCount
+
+var KillCount = KillCount || (function() {
+    'use strict';
+    
+    var version = '1.0',
+    
+    handleInput = function(msg) {
+        var args = msg.content.split(",");
+        
+        if (msg.type !== "api") {
+			return;
+		}
+        
+		switch(args[0]) {
+            case '!killCount':
+                menu(msg);
+                break;
+            case '!addPlayer':
+                addPlayer(args[1]);
+                break;
+            case '!addKill':
+                addKill(msg);
+                break;
+		}
+		
+    },
+    
+    menu = function(msg) {
+        var divstyle = 'style="width: 189px; border: 1px solid black; background-color: #ffffff; padding: 5px;"'
+        var headstyle = 'style="color: rgb(0, 153, 255); font-size: 18px; text-align: left; font-variant: small-caps; font-family: Times, serif;"';
+        var substyle = 'style="font-size: 11px; line-height: 13px; margin-top: -3px; font-style: italic;"';
+        var arrowstyle = 'style="border: none; border-top: 3px solid transparent; border-bottom: 3px solid transparent; border-left: 195px solid rgb(0, 153, 255); margin-bottom: 2px; margin-top: 2px;"';
+        var astyle = 'style="text-align:center; border: 1px solid black; margin: 1px; background-color: #0099FF; border-radius: 4px;  box-shadow: 1px 1px 1px #707070;';
+        var tablestyle = 'style="text-align:center;"';
+        var who = msg.who.split(" ");
+        var name = who[0];
+        
+        sendChat('Kill Counter', '/w ' + name + ' <div ' + divstyle + '>' + //--
+            '<div ' + headstyle + '>Kirsty\'s Kill Counter</div>' + //--
+            '<div ' + substyle + '>Menu</div>' + //--
+            '<div ' + arrowstyle + '></div>' + //--
+            '<table>' + //--
+            '<tr><td><a ' + astyle + '" href="!addPlayer,?{Name}">Add Player</a></td></tr>' + //--
+            '<tr><td><a ' + astyle + '" href="!addKill,?{Name},?{Type},?{Number}">Add Kill</a></td></tr>' + //--
+            '</table>'
+        );
+        
+    },
+    
+    addPlayer = function(pname){
+        var pname;
+        var CountSheet = findObjs({
+            type: "character",
+            name: "KillCount"
+        })[0];
+        
+        var types = ["Aberration", "Beast", "Celestial", "Construct", "Dragon", "Elemental", "Fey", "Fiend", "Giant", "Humanoid", "Monstrosity", "Ooze", "Plant", "Undead"];
+        var i;
+        
+        createObj('attribute', {
+            name: pname,
+            current: 0,
+            characterid: CountSheet.id
+        });
+        
+        for (i = 0; i < types.length; i++) { 
+                createObj('attribute', {
+                name: pname + '_' + types[i],
+                current: 0,
+                characterid: CountSheet.id
+            });
+        }
+        
+        sendChat('Kill Counter', pname + ' has been added.');
+    },
+    
+    addKill = function(msg) {
+        
+        var args = msg.content.split(",");
+        var att = args[1]+'_'+args[2];
+        var CountSheet = findObjs({
+            type: "character",
+            name: "KillCount"
+        })[0];
+        var curr = findObjs({type:'attribute', characterid: CountSheet.id, name: att})[0];
+        var currValue = curr.get('current');
+        var newValue = Number(currValue) + Number(args[3]);
+        
+        curr.set('current', newValue);
+        
+        var ptot = findObjs({type:'attribute', characterid: CountSheet.id, name: args[1]})[0];
+        var currpTot = ptot.get('current');
+        var newpTot = Number(currpTot) + Number(args[3]);
+        
+        ptot.set('current', newpTot);
+        
+        var tot = findObjs({type:'attribute', characterid: CountSheet.id, name: 'Total'})[0];
+        var currTot = tot.get('current');
+        var newTot = Number(currTot) + Number(args[3]);
+        
+        tot.set('current', newTot);
+        
+        sendChat('Kill Counter', args[1] + ' has ' + args[3] + ' more ' + args[2] + ' kills, for a total of ' + newValue);
+        
+    },
+    
+    checkInstall = function() {
+        // Check if the KillCount character sheet exists
+        var CountSheet = findObjs({
+            type: "character",
+            name: "KillCount"
+        })[0];
+        
+        if (!CountSheet) {
+            CountSheet = createObj("character", {
+                name: "KillCount"
+            });
+            
+            createObj('attribute', {
+                name: 'Total',
+                current: 0,
+                characterid: CountSheet.id
+            });
+            
+            sendChat('Kill Counter', '/w gm A KillCount sheet has been added to your journal.');
+        };
+    },
+    
+    registerEventHandlers = function() {
+        on('chat:message', handleInput);
+	};
+    
+    return {
+	    CheckInstall: checkInstall,
+	    RegisterEventHandlers: registerEventHandlers
+	};
+    
+}());
+
+on("ready",function(){
+	'use strict';
+	KillCount.CheckInstall();
+	KillCount.RegisterEventHandlers();
+});
