@@ -46,7 +46,7 @@ var KillCount = KillCount || (function() {
             '<div ' + arrowstyle + '></div>' + //--
             '<table>' + //--
             '<tr><td><a ' + astyle + '" href="!addPlayer,?{Name}">Add Player</a></td></tr>' + //--
-            '<tr><td><a ' + astyle + '" href="!addKill,?{Name},?{Type|Abberation|Beast|Celestial|Construct|Dragon|Elemental|Fey|Fiend|Giant|Humanoid|Monstrosity|Ooze|Plant|Undead},?{Number}">Add Kill</a></td></tr>' + //--
+            '<tr><td><a ' + astyle + '" href="!addKill,?{Name},?{Type|Aberration|Beast|Celestial|Construct|Dragon|Elemental|Fey|Fiend|Giant|Humanoid|Monstrosity|Ooze|Plant|Undead},?{Number|1}">Add Kill</a></td></tr>' + //--
             '</table>'
         );
         
