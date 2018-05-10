@@ -3,7 +3,7 @@
 
 
 // API Commands:
-// !genStore - Pulls up the menu and allows the GM to generate and modify the store
+// !ms - Pulls up the menu and allows the GM to generate and modify the store
 // !shop - Puts the virtual store in chat for the players to peruse
 
 
