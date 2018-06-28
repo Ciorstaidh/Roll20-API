@@ -15,7 +15,7 @@ Red Colour: #7E2D40
 var Calendar = Calendar || (function() {
     'use strict';
     
-    var version = '6.0.0',
+    var version = '6.1.0',
         handoutName = 'Events Log',
     
     setDefaults = function() {
