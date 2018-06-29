@@ -334,7 +334,7 @@ var Calendar = Calendar || (function() {
             '<div ' + headstyle + '>Calendar</div>' + //--
             '<div ' + substyle + '>Menu (v.' + state.Calendar.now.version + ')</div>' + //--
             '<div ' + arrowstyle + '></div>' + //--
-            '<table' + tablestyle + '>' + //--
+            '<table ' + tablestyle + '>' + //--
             '<tr><td ' + tdstyle + '>World: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!setworld,?{World?|Faerûn,1|Greyhawk,2|Modern,3|Eberron,4|Tal\'Dorei,5}">' + world + '</a></td></tr>' + //--
             '<tr><td ' + tdstyle + '>Start Date: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!startdate,?{Day},?{Month},?{Year}">' + startdate + '</a></td></tr>' + //--
             '<tr><td ' + tdstyle + '>Day: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!setday,?{Day?|1},' + month +'">' + day + '</a></td></tr>' + //--
