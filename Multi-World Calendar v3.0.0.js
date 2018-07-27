@@ -737,7 +737,6 @@ var Calendar = Calendar || (function() {
             case 'Patchwall':
                 ordinal = 280+date;
                 break;
-            case 'Readyreat':
                 ordinal = 308+date;
                 break;
             case 'Sunsebb':
