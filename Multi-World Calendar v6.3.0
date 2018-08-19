@@ -506,9 +506,9 @@ var Calendar = Calendar || (function() {
                 moMenu = ',?{Month|Horisal|Misuthar|Dualahei|Thunsheer|Unndilar|Brussendar|Sydenstar|Fessuran|Quen\'pillar|Cuersaar|Duscar}">';
             case 6:
                 if(leap==0){
-                    moMenu = ',?{Month|Hammer|Midwinter|Alturiak|Ches|Tarsakh|Greengrass|Mirtul|Kythorn|Flamerule|Midsummer|Eleasias|Eleint|Highharvestide|Marpenoth|Uktar|Feast of the Moon|Nightal}">';
+                    moMenu = ',?{Month|2 Yule|Afteryule|Solmath|Rethe|Astron|Thrimidge|Forelithe|1 Lithe|Mid-year\'s Day|2 Lithe|Afterlithe|Wedmath|Halimath|Winterfilth|Blotmath|Foreyule| 1 Yule}">';
                 }else{
-                    moMenu = ',?{Month|Hammer|Midwinter|Alturiak|Ches|Tarsakh|Greengrass|Mirtul|Kythorn|Flamerule|Midsummer|Sheildmeet|Eleasias|Eleint|Highharvestide|Marpenoth|Uktar|Feast of the Moon|Nightal}">';
+                    moMenu = ',?{Month|2 Yule|Afteryule|Solmath|Rethe|Astron|Thrimidge|Forelithe|1 Lithe|Mid-year\'s Day|Overlithe|2 Lithe|Afterlithe|Wedmath|Halimath|Winterfilth|Blotmath|Foreyule| 1 Yule}">';
                 }
                 break;
 
@@ -850,63 +850,63 @@ getShireDate = function(options){
         var date;
         var month;
 
-        if(day>0 && day<=30){
-            month="Hammer";
-            date=day;
-        }else if(day==31){
-            month="Midwinter";
+        if(day==1){
+            month="2 Yule";
             date='festival';
+        }else if(day>1 && day<=31){
+            month="Afteryule";
+            date=day-1;
         }else if(day>31 && day<=61){
-            month="Alturiak";
+            month="Solmath";
             date=day-31;
         }else if(day>61 && day<=91){
-            month="Ches";
+            month="Rethe";
             date=day-61;
         }else if(day>91 && day<=121){
-            month="Tarsakh";
+            month="Astron";
             date=day-91;
-        }else if(day==122){
-            month="Greengrass";
+        }else if(day>121 && day<=151){
+            month="Thrimidge";
+            date=day-121;
+        }else if(day>151 && day<=181){
+            month="Forelithe";
+            date=day-151;
+        }else if(day==182){
+            month="1 Lithe";
             date='festival';
-        }else if(day>122 && day<=152){
-            month="Mirtul";
-            date=day-122;
-        }else if(day>152 && day<=182){
-            month="Kythorn";
-            date=day-152;
-        }else if(day>182 && day<=212){
-            month="Flamerule";
-            date=day-182;
-        }else if(day==213){
-            month="Midsummer";
+        }else if(day==183){
+            month="Mid-year\'s Day";
             date='festival';
-        }else if(day==214){
-            month="Sheildmeet";
+        }else if(day==184){
+            month="Overlithe";
             date='festival';
-        }else if(day>214 && day<=244){
-            month="Eleasias"
-            date=day-214;
-        }else if(day>244 && day<=274){
-            month="Eleint";
-            date=day-244;
-        }else if(day==275){
-            month="Highharvestide";
+        }else if(day==185){
+            month="2 Lithe";
             date='festival';
+        }else if(day>185 && day<=215){
+            month="Afterlithe";
+            date=day-185;
+        }else if(day>215 && day<=245){
+            month="Wedmath";
+            date=day-215;
+        }else if(day>245 && day<=275){
+            month="Halimath"
+            date=day-245;
         }else if(day>275 && day<=305){
-            month="Marpenoth";
+            month="Winterfilth";
             date=day-275;
         }else if(day>305 && day<=335){
-            month="Uktar";
+            month="Blotmath";
             date=day-305;
+        }else if(day>335 && day<=365){
+            month="Foreyule";
+            date=day-335;
         }else if(day==336){
-            month="Feast of the Moon";
+            month="1 Yule";
             date='festival';
-        }else if(day>336 && day<=366){
-            month="Nightal";
-            date=day-336;
         }else{
-            month="Hammer";
-            date='1';
+            month="2 Yule";
+            date='festival';
         }
 
         var array=month+','+String(date);
@@ -1200,59 +1200,59 @@ getShireDate = function(options){
         }
 
         switch(month) {
-            case 'Hammer':
+            case '2 Yule':
                 ordinal = date;
                 break;
-            case 'Midwinter':
-                ordinal = 31;
+            case 'Afteryule':
+                ordinal = 1+date;
                 break;
-            case 'Alturiak':
+            case 'Solmath':
                 ordinal = 31+date;
                 break;
-            case 'Ches':
+            case 'Rethe':
                 ordinal = 61+date;
                 break;
-            case 'Tarsakh':
+            case 'Astron':
                 ordinal = 91+date;
                 break;
-            case 'Greengrass':
-                ordinal = 122;
+            case 'Thrimidge':
+                ordinal = 121+date;
                 break;
-            case 'Mirtul':
-                ordinal = 122+date;
+            case 'Forelithe':
+                ordinal = 151+date;
                 break;
-            case 'Kythorn':
-                ordinal = 152+date;
+            case '1 Lithe':
+                ordinal = 182;
                 break;
-            case 'Flamerule':
-                ordinal = 182+date;
+            case 'Mid-year\'s Day':
+                ordinal = 183;
                 break;
-            case 'Midsummer':
-                ordinal = 213;
+            case 'Overlithe':
+                ordinal = 184;
                 break;
-            case 'Sheildmeet':
-                ordinal = 214;
+            case '2 Lithe':
+                ordinal = 185;
                 break;
-            case 'Eleasias':
-                ordinal = 214+date;
+            case 'Afterlithe':
+                ordinal = 185+date;
                 break;
-            case 'Eleint':
-                ordinal = 244+date;
+            case 'Wedmath':
+                ordinal = 215+date;
                 break;
-            case 'Highharvestide':
-                ordinal = 275;
+            case 'Halimath':
+                ordinal = 245+date;
                 break;
-            case 'Marpenoth':
+            case 'Winterfilth':
                 ordinal = 275+date;
                 break;
-            case 'Uktar':
+            case 'Blotmath':
                 ordinal = 305+date;
                 break;
-            case 'Feast of the Moon':
+            case 'Foreyule':
                 ordinal = 335+date;
                 break;
-            case 'Nightal':
-                ordinal = 336+date;
+            case '1 Yule':
+                ordinal = 365+date;
                 break;
             }
         state.Calendar.now.ordinal = ordinal;
@@ -1320,7 +1320,7 @@ getShireDate = function(options){
                 }
                 break;
             case 6:
-                if(leap==0 && ordinal <= 214 && newordinal >= 214){
+                if(leap==0 && ordinal <= 184 && newordinal >= 184){
                     state.Calendar.now.ordinal = newordinal+1;
                 }else{
                     state.Calendar.now.ordinal = newordinal;
