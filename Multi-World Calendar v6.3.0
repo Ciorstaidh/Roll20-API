@@ -94,6 +94,9 @@ var Calendar = Calendar || (function() {
                         case 5:
                             getTalOrdinal(msg);
                             break;
+                        case 6:
+                            getShireOrdinal(msg);
+                            break;
                     }
                     weather();
                     calmenu();
@@ -114,6 +117,9 @@ var Calendar = Calendar || (function() {
                             break;
                         case 5:
                             getTalOrdinal(msg);
+                            break;
+                        case 6:
+                            getShireOrdinal(msg);
                             break;
                     }
                     weather();
@@ -242,6 +248,9 @@ var Calendar = Calendar || (function() {
             case 5:
                 nowdate = getTalDate(ordinal).split(',');
                 break;
+            case 6:
+                nowdate = getShireDate(ordinal).split(',');
+                break;
         }
 
         var month = nowdate[0];
@@ -254,6 +263,8 @@ var Calendar = Calendar || (function() {
             moon = getFaerunMoon();
         }else if(state.Calendar.now.world==2){
             moon = getGreyhawkMoon();
+        }else if(state.Calendar.now.world==6){
+            moon = getFaerunMoon();
         }else{
             moon = '';
         }
@@ -321,6 +332,9 @@ var Calendar = Calendar || (function() {
             case 5:
                 nowdate = getTalDate(ordinal).split(',');
                 break;
+            case 6:
+                nowdate = getShireDate(ordinal).split(',');
+                break;
         }
 
         var month = nowdate[0];
@@ -335,7 +349,7 @@ var Calendar = Calendar || (function() {
             '<div ' + substyle + '>Menu (v.' + state.Calendar.now.version + ')</div>' + //--
             '<div ' + arrowstyle + '></div>' + //--
             '<table ' + tablestyle + '>' + //--
-            '<tr><td ' + tdstyle + '>World: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!setworld,?{World?|Faerûn,1|Greyhawk,2|Modern,3|Eberron,4|Tal\'Dorei,5}">' + world + '</a></td></tr>' + //--
+            '<tr><td ' + tdstyle + '>World: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!setworld,?{World?|Faerûn,1|Greyhawk,2|Modern,3|Eberron,4|Tal\'Dorei,5|Middle Earth,6}">' + world + '</a></td></tr>' + //--
             '<tr><td ' + tdstyle + '>Start Date: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!startdate,?{Day},?{Month},?{Year}">' + startdate + '</a></td></tr>' + //--
             '<tr><td ' + tdstyle + '>Day: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!setday,?{Day?|1},' + month +'">' + day + '</a></td></tr>' + //--
             '<tr><td ' + tdstyle + '>Month: </td><td ' + tdstyle + '><a ' + astyle1 + '" href="!setmonth,' + day + moMenu + month + '</a></td></tr>' + //--
@@ -371,6 +385,9 @@ var Calendar = Calendar || (function() {
             case 5:
                 nowdate = getTalDate(ordinal).split(',');
                 break;
+            case 6:
+                nowdate = getShireDate(ordinal).split(',');
+                break;
         }
 
         var month = nowdate[0];
@@ -391,6 +408,8 @@ var Calendar = Calendar || (function() {
             moon = '<table style = "border: none;"><tr><td style="border: none; padding: 2px; padding-left: 5px;">Moon:</td><td style="border: none; padding: 2px; padding-left: 5px;">'+getFaerunMoon()+'</table>';
         }else if(state.Calendar.now.world==2){
             moon = '<table style = "border: none;"><tr><td style="border: none; padding: 2px; padding-left: 5px;">Moon:</td><td style="border: none; padding: 2px; padding-left: 5px;">'+getGreyhawkMoon()+'</table>';
+        }else if(state.Calendar.now.world==6){
+            moon = '<table style = "border: none;"><tr><td style="border: none; padding: 2px; padding-left: 5px;">Moon:</td><td style="border: none; padding: 2px; padding-left: 5px;">'+getFaerunMoon()+'</table>';
         }else{
             moon = '';
         }
@@ -442,6 +461,9 @@ var Calendar = Calendar || (function() {
             case 5:
                 world = 'Tal\'Dorei';
                 break;
+            case 6:
+                world = 'Middle Earth';
+                break;
         }
 
         return world;
@@ -482,10 +504,17 @@ var Calendar = Calendar || (function() {
                 break;
             case 5:
                 moMenu = ',?{Month|Horisal|Misuthar|Dualahei|Thunsheer|Unndilar|Brussendar|Sydenstar|Fessuran|Quen\'pillar|Cuersaar|Duscar}">';
+            case 6:
+                moMenu = ',?{Month|Hammer|Midwinter|Alturiak|Ches|Tarsakh|Greengrass|Mirtul|Kythorn|Flamerule|Midsummer|Sheildmeet|Eleasias|Eleint|Highharvestide|Marpenoth|Uktar|Feast of the Moon|Nightal}">';
+                break;
         }
 
         return moMenu;
     },
+
+/*
+not fixed
+*/
 
     checkLeap = function(){
 
@@ -523,6 +552,9 @@ var Calendar = Calendar || (function() {
             case 5:
                 leap = 0;
                 break;
+            case 6:
+                 leap = 0;
+                 break;
         }
 
         return leap;
@@ -795,6 +827,74 @@ var Calendar = Calendar || (function() {
             date=day-296;
         }else{
             month="Horisal";
+            date='1';
+        }
+
+        var array=month+','+String(date);
+        return array;
+    },
+
+getShireDate = function(options){
+        var day = Number(options);
+        var date;
+        var month;
+
+        if(day>0 && day<=30){
+            month="Hammer";
+            date=day;
+        }else if(day==31){
+            month="Midwinter";
+            date='festival';
+        }else if(day>31 && day<=61){
+            month="Alturiak";
+            date=day-31;
+        }else if(day>61 && day<=91){
+            month="Ches";
+            date=day-61;
+        }else if(day>91 && day<=121){
+            month="Tarsakh";
+            date=day-91;
+        }else if(day==122){
+            month="Greengrass";
+            date='festival';
+        }else if(day>122 && day<=152){
+            month="Mirtul";
+            date=day-122;
+        }else if(day>152 && day<=182){
+            month="Kythorn";
+            date=day-152;
+        }else if(day>182 && day<=212){
+            month="Flamerule";
+            date=day-182;
+        }else if(day==213){
+            month="Midsummer";
+            date='festival';
+        }else if(day==214){
+            month="Sheildmeet";
+            date='festival';
+        }else if(day>214 && day<=244){
+            month="Eleasias"
+            date=day-214;
+        }else if(day>244 && day<=274){
+            month="Eleint";
+            date=day-244;
+        }else if(day==275){
+            month="Highharvestide";
+            date='festival';
+        }else if(day>275 && day<=305){
+            month="Marpenoth";
+            date=day-275;
+        }else if(day>305 && day<=335){
+            month="Uktar";
+            date=day-305;
+        }else if(day==336){
+            month="Feast of the Moon";
+            date='festival';
+        }else if(day>336 && day<=366){
+            month="Nightal";
+            date=day-336;
+        }else{
+            month="Hammer";
             date='1';
         }
 
@@ -1076,6 +1176,77 @@ var Calendar = Calendar || (function() {
         state.Calendar.now.ordinal = ordinal;
     },
 
+    getShireOrdinal = function(options){
+        var args = options.content.split(",");
+        var date = args[1];
+        var month = args[2];
+        var ordinal = state.Calendar.now.ordinal;
+
+        if(date == 'festival'){
+            date = 1;
+        }else{
+            date = Number(args[1]);
+        }
+
+        switch(month) {
+            case 'Hammer':
+                ordinal = date;
+                break;
+            case 'Midwinter':
+                ordinal = 31;
+                break;
+            case 'Alturiak':
+                ordinal = 31+date;
+                break;
+            case 'Ches':
+                ordinal = 61+date;
+                break;
+            case 'Tarsakh':
+                ordinal = 91+date;
+                break;
+            case 'Greengrass':
+                ordinal = 122;
+                break;
+            case 'Mirtul':
+                ordinal = 122+date;
+                break;
+            case 'Kythorn':
+                ordinal = 152+date;
+                break;
+            case 'Flamerule':
+                ordinal = 182+date;
+                break;
+            case 'Midsummer':
+                ordinal = 213;
+                break;
+            case 'Sheildmeet':
+                ordinal = 214;
+                break;
+            case 'Eleasias':
+                ordinal = 214+date;
+                break;
+            case 'Eleint':
+                ordinal = 244+date;
+                break;
+            case 'Highharvestide':
+                ordinal = 275;
+                break;
+            case 'Marpenoth':
+                ordinal = 275+date;
+                break;
+            case 'Uktar':
+                ordinal = 305+date;
+                break;
+            case 'Feast of the Moon':
+                ordinal = 335+date;
+                break;
+            case 'Nightal':
+                ordinal = 336+date;
+                break;
+            }
+        state.Calendar.now.ordinal = ordinal;
+    },
+
     addday = function(no){
         var leap = checkLeap();
         var days = Number(no);
@@ -1137,6 +1308,13 @@ var Calendar = Calendar || (function() {
                     state.Calendar.now.ordinal = newordinal;
                 }
                 break;
+            case 6:
+                if(leap==0 && ordinal <= 214 && newordinal >= 214){
+                    state.Calendar.now.ordinal = newordinal+1;
+                }else{
+                    state.Calendar.now.ordinal = newordinal;
+                }
+
         }
     },
 
@@ -1542,6 +1720,9 @@ var Calendar = Calendar || (function() {
             case 5:
                 nowdate = getTalDate(ordinal).split(',');
                 break;
+            case 6:
+                nowdate = getShireDate(ordinal).split(',');
+                break;
         }
 
         var month = nowdate[0];
@@ -1597,4 +1778,6 @@ on("ready",function(){
 	Calendar.CheckInstall();
 	Calendar.RegisterEventHandlers();
 });
+
+
 
